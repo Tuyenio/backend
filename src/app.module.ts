@@ -3,6 +3,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { SeedModule } from './seed/seed.module';
+import { SeedService } from './seed/seed.service';
+import { User } from './entities/user.entity';
 
 @Module({
   imports: [
@@ -14,11 +18,15 @@ import { AppService } from './app.service';
       password: process.env.DB_PASSWORD || 'nnt',
       database: process.env.DB_NAME || 'qlcv',
       schema: process.env.DB_SCHEMA || 'qlcv',
+      entities: [User],
       autoLoadEntities: true,
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([User]),
+    AuthModule,
+    SeedModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SeedService],
 })
 export class AppModule {}
