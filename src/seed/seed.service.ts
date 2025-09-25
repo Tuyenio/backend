@@ -67,4 +67,13 @@ export class SeedService {
     console.log('Trưởng phòng: manager@company.com / manager123');
     console.log('Nhân viên: employee@company.com / employee123');
   }
+
+  async resetAndSeedUsers() {
+    // Xóa tất cả users
+    await this.userRepository.clear();
+    console.log('Đã xóa tất cả users');
+    
+    // Seed lại users
+    await this.seedUsers();
+  }
 }

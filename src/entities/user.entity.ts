@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { Role } from '../common/enums/role.enum';
 
@@ -33,6 +35,9 @@ export class User {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @Column({ nullable: true })
+  departmentId: number;
 
   @Column({ nullable: true, type: 'varchar' })
   resetPasswordToken: string | null;
